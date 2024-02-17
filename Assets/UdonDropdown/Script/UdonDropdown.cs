@@ -25,7 +25,7 @@ namespace satania
         [SerializeField] private int val;
 
         [Header("Listの中身")]
-        [SerializeField] public string[] _options;
+        [SerializeField] string[] _options;
         #endregion
 
         #region variable
