@@ -1,4 +1,4 @@
-udonsharp上で動くdropdownです。
+Udonsharp上で動くDropdownです。
 
 主にoptionsを動的に更新するために使用します。
 
