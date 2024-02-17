@@ -15,23 +15,23 @@ namespace satania
         #region Serialize
         [Header("重要パーツ")]
         [SerializeField] Canvas m_rootcanvas;
-        [SerializeField] Canvas m_TemlateCanvas;
-        [SerializeField] RectTransform m_Template;
-        [SerializeField] GameObject m_TemplateGameobject;
-        [SerializeField] Text myLabel;
-        [SerializeField] GameObject m_Blocker;
+        [SerializeField] RectTransform m_template;
+        [SerializeField] Text m_myLabel;
+        [SerializeField] GameObject m_blocker;
 
         [Header("index")]
         [SerializeField] private int val;
 
         [Header("Listの中身")]
-        [SerializeField] string[] _options;
+        [SerializeField] private string[] _options;
         #endregion
 
         #region variable
         private bool _isShow;
         private RectTransform m_Dropdown;
         private DropdownItem[] m_Items;
+
+        Canvas m_temlateCanvas;
 
         public string[] options
         {
@@ -40,10 +40,20 @@ namespace satania
             {
                 _options = value;
 
+                //中身が変更された場合に、indexが配列より大きい場合は変更する
+                if (Value >= options.Length)
+                {
+                    Value = options.Length - 1;
+                }
+
+                if (options.Length > 0 && Value > -1)
+                    m_myLabel.text = options[Value];
+                else
+                    m_myLabel.text = "";
+
                 if (IsShow)
                 {
                     IsShow = false;
-                    IsShow = true;
                 }
             }
         }
@@ -93,7 +103,10 @@ namespace satania
         #region Main Func
         public RectTransform Show()
         {
-            m_TemlateCanvas.sortingLayerID = m_rootcanvas.sortingLayerID;
+            if (m_temlateCanvas == null)
+                m_temlateCanvas = m_template.GetComponent<Canvas>();
+
+            m_temlateCanvas.sortingLayerID = m_rootcanvas.sortingLayerID;
             RectTransform dropdownRectTransform = CreateDropdownList();
 
             DropdownItem itemTemplate = dropdownRectTransform.GetComponentInChildren<DropdownItem>();
@@ -175,27 +188,27 @@ namespace satania
             }
 
             // Make drop-down template and item template inactive
-            m_Template.gameObject.SetActive(false);
+            m_template.gameObject.SetActive(false);
             itemTemplate.gameObject.SetActive(false);
 
-            m_Blocker.SetActive(true);
+            m_blocker.SetActive(true);
 
             return dropdownRectTransform;
         }
         public void Hide()
         {
             IsShow = false;
-            m_Blocker.SetActive(false);
+            m_blocker.SetActive(false);
         }
         #endregion
 
         #region Utility
         private void SetLabel(int value)
         {
-            if (value >= 0)
-                myLabel.text = options[value];
-            else if (0 > value)
-                myLabel.text = "";
+            if (value > -1)
+                m_myLabel.text = options[value];
+            else
+                m_myLabel.text = "";
         }
 
         private void ToggleCheckmarks(int value)
@@ -322,7 +335,7 @@ namespace satania
         public RectTransform CreateDropdownList()
         {
             //従来の処理通り複製して名前を変更
-            var cloned = Instantiate(m_TemplateGameobject);
+            var cloned = Instantiate(m_template.gameObject);
             cloned.transform.SetParent(transform, false);
 
             cloned.SetActive(true);

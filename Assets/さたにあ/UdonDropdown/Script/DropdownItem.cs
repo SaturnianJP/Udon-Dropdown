@@ -8,7 +8,7 @@ namespace satania
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class DropdownItem : UdonSharpBehaviour
     {
-        [SerializeField]UdonDropdown udonDropDown;
+        [SerializeField] UdonDropdown udonDropDown;
 
         [SerializeField] private Text m_text;
         [SerializeField] private Image m_image;

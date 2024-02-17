@@ -383,11 +383,9 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 2849685905616376989}
   m_rootcanvas: {fileID: 2849685906837928018}
-  m_TemlateCanvas: {fileID: 2849685907025291553}
-  m_Template: {fileID: 2849685907025291578}
-  m_TemplateGameobject: {fileID: 2849685907025291579}
-  myLabel: {fileID: 2849685906505810412}
-  m_Blocker: {fileID: 7852762133037016122}
+  m_template: {fileID: 2849685907025291578}
+  m_myLabel: {fileID: 2849685906505810412}
+  m_blocker: {fileID: 7852762133037016122}
   val: 0
   _options:
   - a
